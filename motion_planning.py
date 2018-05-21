@@ -10,6 +10,7 @@ from udacidrone import Drone
 from udacidrone.connection import MavlinkConnection
 from udacidrone.messaging import MsgID
 from udacidrone.frame_utils import global_to_local
+from utils import read_home, collinearity_prune
 
 
 class States(Enum):
@@ -120,12 +121,17 @@ class MotionPlanning(Drone):
         self.target_position[2] = TARGET_ALTITUDE
 
         # TODO: read lat0, lon0 from colliders into floating point values
-        
+	    lat0, lon0 = read_home('./collider.csv')
         # TODO: set home position to (lon0, lat0, 0)
+    	self.set_home_position(lon0, lat0, 0)
+	    print ("lon0 = {}, lat0 = {}, alt0 = {}".format(lon0, lat0, alt0))
+	    print ("global home position is {}".format(self.global_home))
 
         # TODO: retrieve current global position
+		glat0, glon0, galt0 = self.global_position()
  
         # TODO: convert to current local position using global_to_local()
+		north, east, down = self.global_to_local(self.global_position, (lon0, lat0, 0))
         
         print('global home {0}, position {1}, local position {2}'.format(self.global_home, self.global_position,
                                                                          self.local_position))
@@ -138,10 +144,15 @@ class MotionPlanning(Drone):
         # Define starting point on the grid (this is just grid center)
         grid_start = (-north_offset, -east_offset)
         # TODO: convert start position to current position rather than map center
+		grid_start_north = int(np.ceil(local_north - north_offset))
+		grid_start_east = int(np.ceil(local_east - east_offset))
+		grid_start = (grid_start_north, grid_start_east)
         
         # Set goal as some arbitrary position on the grid
         grid_goal = (-north_offset + 10, -east_offset + 10)
+	
         # TODO: adapt to set goal as latitude / longitude position and convert
+		goal_lat, goal_lon, goal_up = self.local_to_global(grid_goal, self.global_home)
 
         # Run A* to find a path from start to goal
         # TODO: add diagonal motions with a cost of sqrt(2) to your A* implementation
@@ -149,6 +160,7 @@ class MotionPlanning(Drone):
         print('Local Start and Goal: ', grid_start, grid_goal)
         path, _ = a_star(grid, heuristic, grid_start, grid_goal)
         # TODO: prune path to minimize number of waypoints
+		path = collinearity_prune(path)
         # TODO (if you're feeling ambitious): Try a different approach altogether!
 
         # Convert path to waypoints
