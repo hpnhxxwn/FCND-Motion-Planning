@@ -10,7 +10,7 @@ def read_home(filename):
 
 
 def point(p):
-    return np.array([p[0], p[1], 1.])
+    return np.array([p[0], p[1], 1.]).reshape(1, -1)
 
 def collinearity_check(p1, p2, p3, epsilon=1e-5):
     m = np.concatenate((p1, p2, p3), 0)
