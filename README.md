@@ -24,7 +24,7 @@
 These scripts contain a basic planning implementation that includes...
 
 Here is a video of my result.
-![Top Down View](https://youtu.be/oQS_rbUXzY8)
+https://youtu.be/oQS_rbUXzY8
 
 `motion_planing.py` and 'planning_utils.py' includes a state based control loop for managing the drones behaviour, and planning a suitable path. The functionality in planning_utils.py discretizes the world into a grid or graph representation, while the motion_planning.py code implements the drone object for controlling the behaviour and mission of the drone.
 
@@ -101,11 +101,3 @@ The path is pruned using collinearity as described in the lecture. If three poin
 ### Execute the flight
 #### 1. Does it work?
 It works!
-
-### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
-  
-# Extra Challenges: Real World Planning
-
-For an extra challenge, consider implementing some of the techniques described in the "Real World Planning" lesson. You could try implementing a vehicle model to take dynamic constraints into account, or implement a replanning method to invoke if you get off course or encounter unexpected obstacles.
-
-
