@@ -24,7 +24,9 @@
 These scripts contain a basic planning implementation that includes...
 
 Here is a video of my result.
-![Top Down View](https://youtu.be/oQS_rbUXzY8)
+<figure class="video_container">
+  <iframe src="https://youtu.be/oQS_rbUXzY8" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
 
 `motion_planing.py` and 'planning_utils.py' includes a state based control loop for managing the drones behaviour, and planning a suitable path. The functionality in planning_utils.py discretizes the world into a grid or graph representation, while the motion_planning.py code implements the drone object for controlling the behaviour and mission of the drone.
 
