@@ -101,7 +101,3 @@ The path is pruned using collinearity as described in the lecture. If three poin
 ### Execute the flight
 #### 1. Does it work?
 It works!
-
-### Double check that you've met specifications for each of the [rubric](https://review.udacity.com/#!/rubrics/1534/view) points.
-
-
